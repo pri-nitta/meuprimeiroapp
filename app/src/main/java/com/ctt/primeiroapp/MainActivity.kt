@@ -13,29 +13,30 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val mensagem = "Usuário cadastrado com sucesso!"
         val botaoCadastrar = findViewById<Button>(R.id.btnCadastrar)
         val nomeUsuario = findViewById<EditText>(R.id.edtNomeUsuario)
+        val idadeUsuario= findViewById<EditText>(R.id.edtIdadeUsuario)
 
         var contador = 0
 
         botaoCadastrar.setOnClickListener{
             val nomeDigitado = nomeUsuario.text.toString()
+            val idadeDigitada = idadeUsuario.text.toString()
+
             if (nomeDigitado.isEmpty()){
-                nomeUsuario.error = "Por favor digite seu nome."
+                if (idadeDigitada.isEmpty()){
+                    idadeUsuario.error = "Por favor não esqueça de digitar sua idade!"
+                }else{
+                    nomeUsuario.error = "Por favor digite seu nome."
+                }
             } else{
-                val usuario = Usuario(contador++, nomeDigitado)
+                val usuario = Usuario(contador++, nomeDigitado, idadeDigitada)
                 exibirUsuario(usuario)
             }
         }
-
     }
 
     fun exibirUsuario(usuario: Usuario){
-        Toast.makeText(this,"Boas vindas, ${usuario.nome}! Seu id é ${usuario.id}",Toast.LENGTH_LONG).show()
-    }
-
-    fun exibirMensagemErro(){
-        Toast.makeText(this, "Por favor, insira seu nome", Toast.LENGTH_SHORT)
+        Toast.makeText(this,"Boas vindas, ${usuario.nome}, ${usuario.idade} anos! Seu id é ${usuario.id}",Toast.LENGTH_LONG).show()
     }
 }

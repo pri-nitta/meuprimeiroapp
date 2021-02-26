@@ -54,14 +54,14 @@
     />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescricao"
-        android:orientation="vertical"
-        android:layout_margin="20dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtDescricao"
+            android:orientation="vertical"
+            android:layout_margin="20dp">
 
 
         <EditText
@@ -71,6 +71,16 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
         />
+
+        <EditText
+                android:id="@+id/edtIdadeUsuario"
+                android:hint="@string/edt_idadeusuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:layout_margin="8dp"
+        />
+
         <Button
                 android:id="@+id/btnCadastrar"
                 android:layout_width="wrap_content"
