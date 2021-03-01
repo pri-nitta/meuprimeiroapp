@@ -1,15 +1,20 @@
 package com.ctt.primeiroapp
 
 import android.content.Intent
+import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import com.ctt.primeiroapp.model.Usuario
 import kotlinx.android.synthetic.main.activity_main.*
+
 private const val CICLO_VIDA = "CICLOVIDA"
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         val botaoCadastrar = findViewById<Button>(R.id.btnCadastrar)
         val nomeUsuario = findViewById<EditText>(R.id.edtNomeUsuario)
         val idadeUsuario = findViewById<EditText>(R.id.edtIdadeUsuario)
+        val fotoUsuario = findViewById<ImageView>(R.id.imgUsuario)
 
         var contador = 0
 
@@ -36,6 +42,31 @@ class MainActivity : AppCompatActivity() {
                 exibirUsuario()
             }
         }
+
+        fotoUsuario.setOnClickListener {
+            abrirCamera()
+        }
+
+    }
+
+    fun abrirCamera() {
+        val CAMERA_REQUEST_CODE = 12345
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        if (cameraIntent.resolveActivity(packageManager) != null) {
+            startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
+        } else {
+            Toast.makeText(this, "Alguma coisa errada não está certa!", Toast.LENGTH_SHORT)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 12345 && resultCode == RESULT_OK) {
+            val imagem = data?.extras?.get("data") as Bitmap
+                imgUsuario.setImageBitmap(imagem)
+            }
+        }
+
     }
 
     fun exibirUsuario() {
@@ -77,7 +108,8 @@ class MainActivity : AppCompatActivity() {
         super.onBackPressed()
         Toast.makeText(
             this, "vlw flw",
-            Toast.LENGTH_LONG).show()
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     override fun onDestroy() {
